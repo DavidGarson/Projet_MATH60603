@@ -1,27 +1,23 @@
 ---
-title: "Projet_MATH60603"
-author: "David_Garson"
-date: "15/10/2020"
-output: pdf_document
+title: 'Projet '
+author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
+date: "xx/12/2020"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Importation des données
+# Exploration des données
 
 ```{r}
+# Importation des données
+
 train=read.csv("data/churn-bigml-80.csv")
 test=read.csv("data/churn-bigml-20.csv")
-
-print("jean")
-print("david")
-print("test")
-
-print("test 2 jg ")
-print ("a ne pas supprimer ")
-
-
 ```
 
