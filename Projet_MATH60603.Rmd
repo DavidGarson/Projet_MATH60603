@@ -19,5 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 train=read.csv("data/churn-bigml-80.csv")
 test=read.csv("data/churn-bigml-20.csv")
+
+summary(train)
 ```
 
