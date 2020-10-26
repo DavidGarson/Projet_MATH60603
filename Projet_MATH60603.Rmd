@@ -20,8 +20,13 @@ knitr::opts_chunk$set(echo = TRUE)
 train=read.csv("data/churn-bigml-80.csv")
 test=read.csv("data/churn-bigml-20.csv")
 
+<<<<<<< HEAD
 
 #asas
 
+=======
+summary(train)
+#c'Est bon ca fonctionne
+>>>>>>> 8abf53b9744173c04f16e088c179ce282cc45d17
 ```
 
