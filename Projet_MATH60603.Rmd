@@ -19,20 +19,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 train=read.csv("data/churn-bigml-80.csv")
 test=read.csv("data/churn-bigml-20.csv")
+```
 
+
+```{r}
 summary(train)
+```
+## Réencodage des variables "State", "International.plan" et "Voice.mail.plan" en facteur. La variable d'intérêt est réencodée en variable logique, à savoir que les valeurs "vrai" sont codées "1" et les valeurs "faux" sont codées en 0
+```{r}
+### TRAIN ####
+#transformation des variables "character" en "facteur"
 
+train$State=as.factor(train$State)
+train$International.plan=as.factor(train$International.plan)
+train$Voice.mail.plan=as.factor(train$Voice.mail.plan)
 
+#transformation variable d'intérêt en variable logique
+train$Churn=as.logical(train$Churn)
+
+### TEST ####
+#transformation des variables "character" en "facteur"
+
+test$State=as.factor(test$State)
+test$International.plan=as.factor(test$International.plan)
+test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
+
+#transformation variable d'intérêt en variable logique
+test$Churn=as.logical(test$Churn)
+```
+
+```{r}
+summary(train)
+```
+
+```{r}
+# fonction 
 analyse_table = function (nom,variable,nb_donne)
 {
-table_temporaire= table(variable)
-table_temporaire = as.data.frame(table_temporaire)
-table_temporaire = data.frame(table_temporaire,pourcentage=round(table_temporaire[2]/nb_donne*100, digit =2))
-names(table_temporaire)[3] = "% Freq"
-names(table_temporaire)[1] = nom
-#table_temporaire = head(table_temporaire[order(-table_temporaire[3]),],3)
-table_temporaire = table_temporaire[order(-table_temporaire[3]),]
-return(table_temporaire)
+  table_temporaire= table(variable)
+  table_temporaire = as.data.frame(table_temporaire)
+  table_temporaire = data.frame(table_temporaire,pourcentage=round(table_temporaire[2]/nb_donne*100, digit =2))
+  names(table_temporaire)[3] = "% Freq"
+  names(table_temporaire)[1] = nom
+  #table_temporaire = head(table_temporaire[order(-table_temporaire[3]),],3)
+  table_temporaire = table_temporaire[order(-table_temporaire[3]),]
+  return(table_temporaire)
 }
 
 analyse_table('State',train$State,nrow(train))
@@ -54,7 +85,7 @@ for (i in 1:length(colnames(train)))
 
 
 ```
-
+REMARQUE : Si on conserve les varialbes Customer.service.calls et total.intl,calls en variables numériques, il faudra surement prendre le log de ces variables car elles sont asymetriques à droite.!!
 
 ```{r}
 
