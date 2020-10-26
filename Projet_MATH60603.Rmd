@@ -20,13 +20,48 @@ knitr::opts_chunk$set(echo = TRUE)
 train=read.csv("data/churn-bigml-80.csv")
 test=read.csv("data/churn-bigml-20.csv")
 
-<<<<<<< HEAD
-
-#asas
-
-=======
 summary(train)
-#c'Est bon ca fonctionne
->>>>>>> 8abf53b9744173c04f16e088c179ce282cc45d17
+
+
+analyse_table = function (nom,variable,nb_donne)
+{
+table_temporaire= table(variable)
+table_temporaire = as.data.frame(table_temporaire)
+table_temporaire = data.frame(table_temporaire,pourcentage=round(table_temporaire[2]/nb_donne*100, digit =2))
+names(table_temporaire)[3] = "% Freq"
+names(table_temporaire)[1] = nom
+#table_temporaire = head(table_temporaire[order(-table_temporaire[3]),],3)
+table_temporaire = table_temporaire[order(-table_temporaire[3]),]
+return(table_temporaire)
+}
+
+analyse_table('State',train$State,nrow(train))
+analyse_table('International.plan',train$International.plan,nrow(train))
+analyse_table('Voice.mail.plan',train$Voice.mail.plan,nrow(train))
+analyse_table('Churn',train$Churn,nrow(train))
+analyse_table('Area.code',train$Area.code,nrow(train))
+
+
+for (i in 1:length(colnames(train)))
+{
+  if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
+  {
+    hist(train[,i], main = (colnames(train)[i] ))
+    plot(train[,i], main = (colnames(train)[i] ))
+  }
+}
+
+
+
+```
+
+
+```{r}
+
+library(usmap)
+library(ggplot2)
+
+plot_usmap()
+
 ```
 
