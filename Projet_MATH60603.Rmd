@@ -45,12 +45,14 @@ test$International.plan=as.factor(test$International.plan)
 test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
 
 #transformation variable d'intérêt en variable logique
-test$Churn=as.logical(test$Churn)
+test$Churn=as.integer(test$Churn)
 ```
 
 ```{r}
 summary(train)
 ```
+
+## Étude descriptive des données
 
 ```{r}
 # fonction 
@@ -87,12 +89,43 @@ for (i in 1:length(colnames(train)))
 ```
 REMARQUE : Si on conserve les varialbes Customer.service.calls et total.intl,calls en variables numériques, il faudra surement prendre le log de ces variables car elles sont asymetriques à droite.!!
 
+
+
 ```{r}
+round(mean(train$Churn),digits=2)
+```
+Le pourcentage de clients ayant quittés la compagnie est de 15%.\
 
-library(usmap)
+
+
+```{r}
 library(ggplot2)
-
-plot_usmap()
+ggplot(train, aes(x = Churn, fill=Customer.service.calls)) +
+  geom_bar( ) +
+  xlab("client ayant quitté") + ylab("Customer.service.calls") +
+  ggtitle("Total de client ayant quitté")
 
 ```
 
+```{r}
+library(dplyr)
+library(usmap)
+us.map=train
+names(us.map)[names(us.map)=="State"]="state"
+us.map = data.frame(us.map)
+
+state.churn=us.map %>%
+  group_by(state) %>%
+  summarise(pct_perte.client = mean(Churn))
+```
+
+```{r}
+us.map = data.frame(us.map)
+
+plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="blue")+
+  scale_fill_continuous(low = "white", high = "blue", name = "pct_perte.client")+ 
+  labs(title = "Perte clientèle États-Unis", subtitle = "Opérateur Orange télécom")+
+  theme(legend.position = "right")
+
+```
+On constate que l'état du Texas est l'état ayant perdu le plus de clientèle
