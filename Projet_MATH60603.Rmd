@@ -3,9 +3,10 @@ title: 'Projet '
 author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
 date: "xx/12/2020"
 output:
-  html_document: default
+  pdf_document:
+    toc: true
   word_document: default
-  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -97,14 +98,14 @@ REMARQUE : Si on conserve les varialbes Customer.service.calls et total.intl,cal
 summary(train)
 ```
 
-Le dataset d'entraînement ne contient aucune valeurs manquantes. il y a 15 variables continues, 3 variables catégorielles, et une variables binaires
+Le dataset d'entraînement ne contient aucune valeur manquante. il y a 15 variables continues, 3 variables catégorielles, et une variables binaires.
 
 ```{r}
 round(mean(train$Churn),digits=2)
 ```
 Le pourcentage de clients ayant quittés la compagnie est de 15%.\
 
-```{r}
+```{r,include=FALSE}
 library("plotly")
 library("corrplot")
 ```
