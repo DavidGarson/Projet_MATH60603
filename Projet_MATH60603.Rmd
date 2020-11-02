@@ -10,6 +10,12 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# Librairies
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
 ```
 
 # Exploration des données
@@ -47,11 +53,6 @@ test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
 #transformation variable d'intérêt en variable logique
 test$Churn=as.integer(test$Churn)
 ```
-
-```{r}
-summary(train)
-```
-
 ## Étude descriptive des données
 
 ```{r}
@@ -73,8 +74,10 @@ analyse_table('International.plan',train$International.plan,nrow(train))
 analyse_table('Voice.mail.plan',train$Voice.mail.plan,nrow(train))
 analyse_table('Churn',train$Churn,nrow(train))
 analyse_table('Area.code',train$Area.code,nrow(train))
+```
 
 
+```{r}
 for (i in 1:length(colnames(train)))
 {
   if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
@@ -83,20 +86,33 @@ for (i in 1:length(colnames(train)))
     plot(train[,i], main = (colnames(train)[i] ))
   }
 }
-
-
-
 ```
+
+
 REMARQUE : Si on conserve les varialbes Customer.service.calls et total.intl,calls en variables numériques, il faudra surement prendre le log de ces variables car elles sont asymetriques à droite.!!
 
+## Analyse descriptive des données 
 
+```{r}
+summary(train)
+```
+
+Le dataset d'entraînement ne contient aucune valeurs manquantes. il y a 15 variables continues, 3 variables catégorielles, et une variables binaires
 
 ```{r}
 round(mean(train$Churn),digits=2)
 ```
 Le pourcentage de clients ayant quittés la compagnie est de 15%.\
 
+```{r}
+library("plotly")
+library("corrplot")
+```
 
+```{r}
+corrplot(cor(train[,c(2,3,6:19)]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
+```
+Les varaibles du dataset sont faiblement corrélées à l'exception des variables indiquant le nombre de muinutes consommés et les frais chargés associés, comme les varaibles : "Total.night charge" et "Total.night.minutes". Comme ces variables ont une corrélation parfaites, nous décidons de supprimer du dataset les variables "charge". Ce qui revient à supprimer 4 variables du dataset.
 
 ```{r}
 library(ggplot2)
@@ -107,7 +123,7 @@ ggplot(train, aes(x = Churn, fill=Customer.service.calls)) +
 
 ```
 
-```{r}
+```{r, message=FALSE}
 library(dplyr)
 library(usmap)
 us.map=train
@@ -122,10 +138,10 @@ state.churn=us.map %>%
 ```{r}
 us.map = data.frame(us.map)
 
-plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="blue")+
-  scale_fill_continuous(low = "white", high = "blue", name = "pct_perte.client")+ 
+plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="black")+
+  scale_fill_continuous(low = "green", high = "red", name = "pct_perte.client")+ 
   labs(title = "Perte clientèle États-Unis", subtitle = "Opérateur Orange télécom")+
   theme(legend.position = "right")
 
 ```
-On constate que l'état du Texas est l'état ayant perdu le plus de clientèle
+On constate que les états du Texas et New Jersey sont les états ayant perdus le plus de clientèle, avec un pourcentage de perte supérieur à 25%.\
