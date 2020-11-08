@@ -1,12 +1,12 @@
 ---
-title: 'Projet '
-author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
-date: "xx/12/2020"
-output:
-  pdf_document:
-    toc: true
-  word_document: default
-  html_document: default
+# title: 'Projet '
+# author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
+# date: "xx/12/2020"
+# output:
+#   pdf_document:
+#     toc: true
+#   word_document: default
+#   html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -51,8 +51,9 @@ test$State=as.factor(test$State)
 test$International.plan=as.factor(test$International.plan)
 test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
 
+#### 2020-11-07 Jean : J'ai changé as.integer par as.logical : 
 #transformation variable d'intérêt en variable logique
-test$Churn=as.integer(test$Churn)
+test$Churn=as.logical(test$Churn)
 ```
 ## Étude descriptive des données
 
@@ -79,12 +80,15 @@ analyse_table('Area.code',train$Area.code,nrow(train))
 
 
 ```{r}
+
+par(mfrow=c(2,4))
 for (i in 1:length(colnames(train)))
 {
   if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
   {
-    hist(train[,i], main = (colnames(train)[i] ))
-    plot(train[,i], main = (colnames(train)[i] ))
+    hist(train[,i], main = (colnames(train)[i] ),xlab = element_blank())
+    Axis(side=1, labels=FALSE)
+    #plot(train[,i], main = (colnames(train)[i] ))
   }
 }
 ```
