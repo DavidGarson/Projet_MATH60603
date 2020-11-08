@@ -19,6 +19,38 @@ library(ggplot2)
 library(lattice)
 ```
 
+# Introduction : présentation des objectifs de l’étude
+
+L'objectif de cette étude est de faire une prédiction sur le désbonnemennt d'un client pour un service de télécommunication. Cette simulation a été fait à partir d'une base de données présent sur kaggle à l'adresse suivante : https://www.kaggle.com/mnassrib/telecom-churn-datasets?select=churn-bigml-80.csv. L'analyse a été effectué sur les client d'Orange Telecom aux États-Unis et plusieurs variables on été analysés tels que lieu géographique, le type de plan que le client possède, le nombre de minutes utilisé pour des appels durant le jour et le soir, etc. 
+
+Ce rapport contient en premier lieu, une présentation détaillés de notre méthode d'analyse. Cette section contiendra d'abord une exploration détaillés des données possédés, un traitement et un nettoyage préparatoire des données. Puis, plusieurs méthode et stratégie de prédiction seront testés afin de déterminer le modèle le mieux adapté à notre échantillion d'utilisateurs. 
+
+Une fois le modèle choisi, la deuxième section du rapport présentera les résultats du modèle de prédiction.  
+
+... ... ... ... ... 
+
+
+
+
+# Méthode : présentation du design de l’étude et des différents scénarios utilisés. Présentation de la méthode d’analyse en général.
+
+## Exploration des données
+
+### Présentation des varaibles
+### Traitement et nettoyage préparatoire des données  
+
+
+
+
+
+
+
+
+
+
+###################################
+
+
 # Exploration des données
 
 ```{r}
@@ -51,7 +83,6 @@ test$State=as.factor(test$State)
 test$International.plan=as.factor(test$International.plan)
 test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
 
-#### 2020-11-07 Jean : J'ai changé as.integer par as.logical : 
 #transformation variable d'intérêt en variable logique
 test$Churn=as.logical(test$Churn)
 ```
@@ -137,16 +168,62 @@ us.map = data.frame(us.map)
 
 state.churn=us.map %>%
   group_by(state) %>%
-  summarise(pct_perte.client = mean(Churn))
+  summarise(pct_perte.client = mean(Churn)*100)
 ```
 
 ```{r}
 us.map = data.frame(us.map)
 
 plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="black")+
-  scale_fill_continuous(low = "green", high = "red", name = "pct_perte.client")+ 
+  scale_fill_continuous(low = "green", high = "red", name = "pct_perte.client (%)")+ 
   labs(title = "Perte clientèle États-Unis", subtitle = "Opérateur Orange télécom")+
   theme(legend.position = "right")
 
 ```
 On constate que les états du Texas et New Jersey sont les états ayant perdus le plus de clientèle, avec un pourcentage de perte supérieur à 25%.\
+
+
+
+## Régression logistique (validation croisé)
+
+### courbe de ROC et courbe lift
+### Table de confusion 
+
+#### Taux de mauvaise classisfication
+#### Sensibilité
+#### Spécificité
+#### Taux de faux positifs 
+#### Taux de faux négatif
+
+## Arbre de classification (elagage VS non elague)
+
+### elagage VS non elague VS CP optimale
+### Table de confusion 
+
+#### Taux de mauvaise classisfication
+#### Sensibilité
+#### Spécificité
+#### Taux de faux positifs 
+#### Taux de faux négatif
+
+## forêt aléatoire 
+
+### MSE et R2 et Importance
+
+## Boagging
+
+### MSE et R2 et Importance
+
+## Boosting
+
+### MSE et R2 et Importance
+
+## SVM
+
+
+
+# Résultats : présentation des résultats sous forme de tableaux et figures (ne mettez pas de sortie R)
+
+# Conclusion/discussion : conclusion générale, limites de votre étude, qu’avez -vous appris ?
+
+
