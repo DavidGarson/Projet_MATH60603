@@ -56,8 +56,22 @@ Une fois le modèle choisi, la deuxième section du rapport présentera les rés
 ```{r}
 # Importation des données
 
-train=read.csv("data/churn-bigml-80.csv")
-test=read.csv("data/churn-bigml-20.csv")
+train0=read.csv("data/churn-bigml-80.csv")
+nb_ligne_train = nrow(train0)
+test0=read.csv("data/churn-bigml-20.csv")
+mydata = rbind(train0,test0)
+id.train=c(1:nrow(train0))
+id.test=c((nrow(train0)+1):(nrow(mydata)))
+
+
+
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
+identical(train,train0)
+identical(test,test0)
+all.equal(train,train0)
+all.equal(test,test0)
 ```
 
 
@@ -66,25 +80,19 @@ summary(train)
 ```
 ## Réencodage des variables "State", "International.plan" et "Voice.mail.plan" en facteur. La variable d'intérêt est réencodée en variable logique, à savoir que les valeurs "vrai" sont codées "1" et les valeurs "faux" sont codées en 0
 ```{r}
-### TRAIN ####
 #transformation des variables "character" en "facteur"
 
-train$State=as.factor(train$State)
-train$International.plan=as.factor(train$International.plan)
-train$Voice.mail.plan=as.factor(train$Voice.mail.plan)
+mydata$State=as.factor(mydata$State)
+mydata$International.plan=as.factor(mydata$International.plan)
+mydata$Voice.mail.plan=as.factor(mydata$Voice.mail.plan)
 
 #transformation variable d'intérêt en variable logique
-train$Churn=as.logical(train$Churn)
+mydata$Churn=as.logical(mydata$Churn)
 
-### TEST ####
-#transformation des variables "character" en "facteur"
 
-test$State=as.factor(test$State)
-test$International.plan=as.factor(test$International.plan)
-test$Voice.mail.plan=as.factor(test$Voice.mail.plan)
-
-#transformation variable d'intérêt en variable logique
-test$Churn=as.logical(test$Churn)
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
 ```
 ## Étude descriptive des données
 
@@ -117,7 +125,7 @@ for (i in 1:length(colnames(train)))
 {
   if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
   {
-    hist(train[,i], main = (colnames(train)[i] ),xlab = element_blank())
+    hist(train[,i], main = (colnames(train)[i] ),xlab = element_blank(),col = i+1)
     Axis(side=1, labels=FALSE)
     #plot(train[,i], main = (colnames(train)[i] ))
   }
@@ -151,12 +159,23 @@ corrplot(cor(train[,c(2,3,6:19)]), method = "color", addCoef.col="grey", order =
 Les varaibles du dataset sont faiblement corrélées à l'exception des variables indiquant le nombre de muinutes consommés et les frais chargés associés, comme les varaibles : "Total.night charge" et "Total.night.minutes". Comme ces variables ont une corrélation parfaites, nous décidons de supprimer du dataset les variables "charge". Ce qui revient à supprimer 4 variables du dataset.
 
 ```{r}
+mydata = subset(mydata, select = -c(Total.day.charge,Total.night.charge,Total.eve.charge,Total.intl.charge) )
+
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
+
+corrplot(cor(train[,c(2,3,6:(length(names(mydata))-1))]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
+
+```
+
+
+```{r}
 library(ggplot2)
 ggplot(train, aes(x = Churn, fill=Customer.service.calls)) +
   geom_bar( ) +
   xlab("client ayant quitté") + ylab("Customer.service.calls") +
   ggtitle("Total de client ayant quitté")
-
 ```
 
 ```{r, message=FALSE}
@@ -186,37 +205,255 @@ On constate que les états du Texas et New Jersey sont les états ayant perdus l
 
 ## Régression logistique (validation croisé)
 
-### courbe de ROC et courbe lift
-### Table de confusion 
+```{r}
+set.seed(1234)
 
-#### Taux de mauvaise classisfication
-#### Sensibilité
-#### Spécificité
-#### Taux de faux positifs 
-#### Taux de faux négatif
+train$validation = 0
+train$validation= runif(nrow(train), min=0, max=100)
+train$validation = 0
+
+train <- train[order(train$validation),]
+train$validation[1:nrow(test)] =1
+
+
+model1=glm(Churn~ . - validation, family="binomial",data=train[train$validation==0,] )
+summary(model1)
+
+#BIC  
+round(BIC(model1), digit = 2)
+
+#AIC
+round(model1$aic, digit = 2)
+
+library(ROCR)
+prob.predict=predict.glm(model1,train[train$validation==1,],type="response")
+cutoff=0.5
+test.pred = rep(0, nrow(mydata[train$validation==1,]))
+test.pred[prob.predict > cutoff] = 1
+M=table(test.pred, mydata[train$validation==1,]$Churn,dnn=c("Prediction","Observation"))
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+# Sensibilité
+Sensibilité = d/(b+d)
+
+# Specificité
+Specificité = a/(a+c)
+
+# Taux d'erreures de classification (%)
+((b+c)/(a+b+c+d))*100
+
+
+pred=prediction(prob.predict,test$Churn)
+perf=performance(pred,measure="tpr",x.measure="fpr")
+auc.perf = performance(pred, measure = "auc")
+
+plot(perf, main = "Courbe ROC")
+abline(a=0,b=1)
+
+
+train = subset(train, select = -c(validation) )
+
+```
 
 ## Arbre de classification (elagage VS non elague)
 
-### elagage VS non elague VS CP optimale
-### Table de confusion 
 
-#### Taux de mauvaise classisfication
-#### Sensibilité
-#### Spécificité
-#### Taux de faux positifs 
-#### Taux de faux négatif
+```{r}
+set.seed(400)
 
-## forêt aléatoire 
+# Création de l'arbre : 
+library(rpart.plot)
 
-### MSE et R2 et Importance
 
-## Boagging
 
-### MSE et R2 et Importance
+
+mytree = rpart(Churn~., data=train , method = "class")
+cp_optimal=mytree$cptable[which.min(mytree$cptable[,4]),1]
+mytree_optimal = prune(mytree,cp=cp_optimal)
+prp(mytree_optimal,extra=1,roundint=FALSE, main = "Arbre avec élagage")
+
+
+mytable=table(test$Churn, predict(mytree_optimal,test, type="class"))
+names(dimnames(mytable))= c("Observed", "Predicted")
+M = mytable
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+
+# Taux de mauvaises classifications
+((b+c)/(a+b+c+d))*100
+
+
+# Taux de faux positifs
+round(((b+c)/(a+b+c+d))*100, digit = 2)
+
+# Taux faux négatif 
+round((1-(d/(b+d)))*100, digit = 2)
+
+# Paramètre de complexité maximale
+cp_optimal
+
+
+# Boucle for
+
+nb_boucle = 20
+
+Taux_mauvaise_classificaiton=matrix(0,nb_boucle,1)
+Taux_faux_positifs=matrix(0,nb_boucle,1)
+Taux_faux_negatif=matrix(0,nb_boucle,1)
+valeur_seed = matrix(0,nb_boucle,1)
+
+par(mfrow=c(4,3))
+
+for (i in 1:nb_boucle)
+{
+n=nrow(mydata)
+set.seed(i*15231)
+id.train=sample(1:n,size=nrow(train))
+id.test=setdiff(1:n,id.train)
+
+mydata.train= mydata[id.train,]
+mydata.test = mydata[id.test,]
+
+library(rpart.plot)
+set.seed(i*15231)
+valeur_seed[i]=i*15231
+
+mytree = rpart(Churn~., data=mydata.train, method = "class")
+
+cp_optimal=mytree$cptable[which.min(mytree$cptable[,4]),1]
+mytree_optimal = prune(mytree,cp=cp_optimal)
+
+#prp(mytree_optimal,extra=1,roundint=FALSE)
+
+mytable=table(mydata.test$Churn, predict(mytree_optimal,mydata.test, type="class"))
+names(dimnames(mytable))= c("Observed", "Predicted")
+M = mytable
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+# Taux de mauvaises classifications
+Taux_mauvaise_classificaiton[i]= ((b+c)/(a+b+c+d))
+# Taux faux positifs
+Taux_faux_positifs[i]= round((1-(a/(a+c))), digit = 2 ) 
+# Taux faux négatif
+Taux_faux_negatif[i] = round((1-(d/(b+d))), digit = 2)
+
+
+}
+
+par(mfrow=c(1,1))
+
+plot(valeur_seed,Taux_mauvaise_classificaiton, type = "l", ylim= c(0,0.6), col = 3, ylab = "Taux", xlab = "Valeur de seed différent", main = "Variation du taux de mauvaises clasification,\n de faux positif et de faux négatif")
+lines(valeur_seed,Taux_faux_positifs,col=1)
+lines(valeur_seed,Taux_faux_negatif,col=2)
+legend(90000, 0.6, legend=c("Faux positifs","Faux négatif","Mauvaises classifications"), col=1:3,lty=rep(1,3),title="Taux")
+
+# Taux de faux positif 
+## Maximum
+round(max(Taux_faux_positifs), digit =2)
+
+## Minimum
+round(min(Taux_faux_positifs), digit =2)
+
+# Taux de mauvaises classifications 
+## Maximum
+round(max(Taux_mauvaise_classificaiton), digit =2 )
+
+## Minimum
+round(min(Taux_mauvaise_classificaiton) , digit = 2)
+
+# Taux faux négatif
+## Maximum
+round(max(Taux_faux_negatif), digit = 2)
+
+## Minimum
+round(min(Taux_faux_negatif), digit = 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+## forêt aléatoire approche bagging
+
+
+```{r}
+library(randomForest)
+
+mydata$Churn <- as.factor(mydata$Churn)
+
+set.seed(1234)
+n.arbre=seq(1,800,by=50)
+erreur=NULL
+for (i in n.arbre)
+{
+  rf=randomForest(Churn~.,data=mydata,ntree=i,mtry=length(colnames(mydata))-1)
+  erreur=c(erreur,sum(rf$err.rate[,1])/rf$ntree)
+}
+plot(n.arbre, erreur,type="l")
+
+rf=randomForest(Churn~.,data=mydata,ntree=600,mtry=length(colnames(mydata))-1)   
+rf
+
+importance(rf,type=1)
+
+```
 
 ## Boosting
 
-### MSE et R2 et Importance
+```{r}
+library(randomForest)
+library(adabag)
+
+set.seed(1234)
+
+# boosting with trees of depth 10
+myboost=boosting(Churn~., data=mydata, mfinal = 100, coeflearn = 'Freund', control=rpart.control(maxdepth=10))
+myboost$importance
+
+mytable=table(myboost$class,mydata$Churn)   
+names(dimnames(mytable))= c("Predicted", "Observed")                       
+
+M = mytable
+M
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+# Taux faux positifs arbre élagé
+round((1-(a/(a+c))), digit = 2 ) 
+
+# Taux faux négatif arbre élagé
+round((1-(d/(b+d))), digit = 2)
+
+# Taux de mauvaises classifications arbre élagé
+((b+c)/(a+b+c+d))*100
+
+```
+
 
 ## SVM
 
