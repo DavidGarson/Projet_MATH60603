@@ -1,14 +1,20 @@
 ---
-# title: 'Projet '
-# author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
-# date: "xx/12/2020"
-# output:
-#   pdf_document:
-#     toc: true
-#   word_document: default
-#   html_document: default
+output :
+  bookdown::pdf_document2:
+    fig_caption: yes
+    highlight: tango
+    includes:
+      before_body: before_body.tex
+      in_header: header.tex
+    keep_tex: no
+    number_sections: yes
+    toc: yes
+geometry: top=2.4cm, bottom=2.1cm, outer=2cm, inner=4cm, headheight=40pt
+lang: FR
+documentclass: article
+classoption: letter
 ---
-
+\pagebreak
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -518,6 +524,4 @@ M[1,2]/(M[2,2]+M[1,2])
 
 # Résultats : présentation des résultats sous forme de tableaux et figures (ne mettez pas de sortie R)
 
-# Conclusion/discussion : conclusion générale, limites de votre étude, qu’avez -vous appris ?
-
-
+# Conclusion/discussion : conclusion générale, limites de votre étude, qu’avez vous appris ?
