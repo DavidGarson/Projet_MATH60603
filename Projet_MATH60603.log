@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.11.14)  16 NOV 2020 22:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.11.14)  18 NOV 2020 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -949,7 +949,7 @@ s
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 420.
+(hyperref)                removing `subscript' on input line 421.
 
 (c:/Users/aoutd/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2020/10/27 3.51 The Babel package
@@ -999,24 +999,24 @@ sty) (./Projet_MATH60603.aux
 )
 \openout1 = `Projet_MATH60603.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 461.
-LaTeX Font Info:    ... okay on input line 461.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 462.
+LaTeX Font Info:    ... okay on input line 462.
 
 (c:/Users/aoutd/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
 pdf-base.sty
@@ -1029,7 +1029,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 461.
+Package hyperref Info: Link coloring ON on input line 462.
 
 (c:/Users/aoutd/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -1045,9 +1045,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count326
 )
-LaTeX Info: Redefining \ref on input line 461.
-LaTeX Info: Redefining \pageref on input line 461.
-LaTeX Info: Redefining \nameref on input line 461.
+LaTeX Info: Redefining \ref on input line 462.
+LaTeX Info: Redefining \pageref on input line 462.
+LaTeX Info: Redefining \nameref on input line 462.
 (./Projet_MATH60603.out) (./Projet_MATH60603.out)
 \@outlinefile=\write5
 \openout5 = `Projet_MATH60603.out'.
@@ -1090,17 +1090,17 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: french babel package is loaded.
 Package caption Info: End \AtBeginDocument code.
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 461.
-LaTeX Info: Redefining \degres on input line 461.
-LaTeX Info: Redefining \dots on input line 461.
-LaTeX Info: Redefining \up on input line 461.
+LaTeX Info: Redefining \selectfont on input line 462.
+LaTeX Info: Redefining \degres on input line 462.
+LaTeX Info: Redefining \dots on input line 462.
+LaTeX Info: Redefining \up on input line 462.
 \c@pagesLTS.pnc.arabic=\count327
 \c@pagesLTS.double.arabic=\count328
 \c@pagesLTS.current.local.arabic=\count329
 <img/logo.png, id=63, 602.25pt x 200.75pt>
 File: img/logo.png Graphic file (type png)
 <use img/logo.png>
-Package pdftex.def Info: img/logo.png  used on input line 476.
+Package pdftex.def Info: img/logo.png  used on input line 477.
 (pdftex.def)             Requested size: 330.00711pt x 110.00237pt.
 
 Package pageslts Warning: Counter `page' is zero!
@@ -1109,12 +1109,12 @@ Package pageslts Warning: Counter `page' is zero!
 (pageslts)                (see Page counter overflow in the pageslts
 (pageslts)                documentation), without other measures
 (pageslts)                this will lead to a counter overflow.
-(pageslts)                 on input line 479.
+(pageslts)                 on input line 480.
 
 <Background_Title_lightblue.png, id=65, 597.56134pt x 844.92845pt>
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 479
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 480
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [0
@@ -1159,72 +1159,87 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write6
 \openout6 = `Projet_MATH60603.toc'.
 
+
+Package hyperref Warning: Suppressing empty link on input line 489.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 488
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 489
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 <Background_lightblue_topdown.png, id=92, 597.56134pt x 844.92845pt>
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 4
-88.
+89.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [1 <./Background_lightblue_topdown.png>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-22.
+23.
 (c:/Users/aoutd/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 525.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 526.
+
+Package hyperref Warning: Suppressing empty link on input line 546.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 545
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 546
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 5
-45.
+46.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [2]
-Overfull \hbox (30.56726pt too wide) in paragraph at lines 620--620
+Overfull \hbox (30.56726pt too wide) in paragraph at lines 621--621
 |\T1/lmr/bx/n/12 3.1. Ré-en-co-dage des va-riables ``Sta-te'', ``In-ter-na-tio-
 nal.plan'' et ``Voice.mail.plan''
  []
 
+
+Package hyperref Warning: Suppressing empty link on input line 623.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 622
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 623
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 6
-22.
+23.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [3]
+
+Package hyperref Warning: Suppressing empty link on input line 716.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 715
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 716
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 7
-15.
+16.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [4]
+
+Package hyperref Warning: Suppressing empty link on input line 754.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 753
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 754
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 7
-53.
+54.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [5]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-5-1.pdf, id=130, 469.755pt x
@@ -1233,7 +1248,7 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (t
 ype pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-5-1.
-pdf  used on input line 781.
+pdf  used on input line 782.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-5-2.pdf, id=131, 469.755pt x
  325.215pt>
@@ -1241,36 +1256,42 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (t
 ype pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-5-2.
-pdf  used on input line 781.
+pdf  used on input line 782.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 781--782
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
 [][]
  []
 
+
+Package hyperref Warning: Suppressing empty link on input line 784.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 783
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 784
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 7
-83.
+84.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [6 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-5-1.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 836.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 835
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 836
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 8
-35.
+36.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [7 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-5-2.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 849--850
+Underfull \hbox (badness 10000) in paragraph at lines 850--851
 
  []
 
@@ -1280,22 +1301,25 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (t
 ype pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-9-1.
-pdf  used on input line 857.
+pdf  used on input line 858.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 857--859
+Underfull \hbox (badness 10000) in paragraph at lines 858--860
 [][]
  []
 
+
+Package hyperref Warning: Suppressing empty link on input line 860.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 859
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 860
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 8
-59.
+60.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [8]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-10-1.pdf, id=160, 469.755pt 
@@ -1304,17 +1328,20 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-10-1
-.pdf  used on input line 872.
+.pdf  used on input line 873.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 875.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 874
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 875
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 8
-74.
+75.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [9 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-9-1.pdf>]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-11-1.pdf, id=171, 469.755pt 
@@ -1323,17 +1350,20 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-11-1
-.pdf  used on input line 884.
+.pdf  used on input line 885.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 887.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 886
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 887
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 8
-86.
+87.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [10 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-10-1.pdf>]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-13-1.pdf, id=182, 469.755pt 
@@ -1342,60 +1372,72 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-13-1
-.pdf  used on input line 929.
+.pdf  used on input line 930.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 929--931
+Underfull \hbox (badness 10000) in paragraph at lines 930--932
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 929--931
+Underfull \hbox (badness 10000) in paragraph at lines 930--932
 
  []
 
+
+Package hyperref Warning: Suppressing empty link on input line 932.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 931
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 932
 .
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 9
-31.
+32.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [11 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-11-1.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 1047.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 104
-6.
+7.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-046.
+047.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [12 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-13-1.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 1047.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 104
-6.
+7.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-046.
+047.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [13]
+
+Package hyperref Warning: Suppressing empty link on input line 1094.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 109
-3.
+4.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-093.
+094.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [14]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-14-1.pdf, id=212, 469.755pt 
@@ -1404,17 +1446,20 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-14-1
-.pdf  used on input line 1110.
+.pdf  used on input line 1111.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 1134.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 113
-3.
+4.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-133.
+134.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [15 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-14-1.pdf>]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1.pdf, id=224, 469.755pt 
@@ -1423,28 +1468,34 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1
-.pdf  used on input line 1148.
+.pdf  used on input line 1149.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 1166.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 116
+6.
+(pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
+File: Background_lightblue_topdown.png Graphic file (type png)
+<use Background_lightblue_topdown.png>
+Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
+166.
+(pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
+[16 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 1265.
+
+File: Background_Title_lightblue.png Graphic file (type png)
+<use Background_Title_lightblue.png>
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 126
 5.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-165.
-(pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
-[16 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-15-1.pdf>]
-File: Background_Title_lightblue.png Graphic file (type png)
-<use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 126
-4.
-(pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
-File: Background_lightblue_topdown.png Graphic file (type png)
-<use Background_lightblue_topdown.png>
-Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-264.
+265.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [17]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-15-2.pdf, id=240, 469.755pt 
@@ -1453,28 +1504,34 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-15-2.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-15-2.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-15-2
-.pdf  used on input line 1266.
+.pdf  used on input line 1267.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 1275.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 127
-4.
+5.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-274.
+275.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [18 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-15-2.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 1370.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
-Package pdftex.def Info: Background_Title_lightblue.png  used on input line 136
-9.
+Package pdftex.def Info: Background_Title_lightblue.png  used on input line 137
+0.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-369.
+370.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [19]
 <Projet_MATH60603_files/figure-latex/unnamed-chunk-16-1.pdf, id=257, 469.755pt 
@@ -1483,56 +1540,68 @@ File: Projet_MATH60603_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (
 type pdf)
 <use Projet_MATH60603_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: Projet_MATH60603_files/figure-latex/unnamed-chunk-16-1
-.pdf  used on input line 1405.
+.pdf  used on input line 1406.
 (pdftex.def)             Requested size: 443.57677pt x 307.0916pt.
+
+Package hyperref Warning: Suppressing empty link on input line 1408.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 140
-7.
+8.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-407.
+408.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [20]
-Overfull \hbox (118.16989pt too wide) in paragraph at lines 1427--1427
+Overfull \hbox (118.16989pt too wide) in paragraph at lines 1428--1428
 []\T1/lmtt/m/n/10 ##  randomForest(formula = Churn ~ ., data = mydata, ntree = 
 600,      mtry = length(colnames(mydata)) - 1)[] 
  []
 
+
+Package hyperref Warning: Suppressing empty link on input line 1453.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 145
-2.
+3.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-452.
+453.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [21 <./Projet_MATH60603_files/figure-latex/unnamed-chunk-16-1.pdf>]
+
+Package hyperref Warning: Suppressing empty link on input line 1536.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 153
-5.
+6.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-535.
+536.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [22] 
 AED: pageslts setting LastPage 
+
+Package hyperref Warning: Suppressing empty link on input line 1593.
+
 File: Background_Title_lightblue.png Graphic file (type png)
 <use Background_Title_lightblue.png>
 Package pdftex.def Info: Background_Title_lightblue.png  used on input line 159
-2.
+3.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 File: Background_lightblue_topdown.png Graphic file (type png)
 <use Background_lightblue_topdown.png>
 Package pdftex.def Info: Background_lightblue_topdown.png  used on input line 1
-592.
+593.
 (pdftex.def)             Requested size: 562.25482pt x 795.00642pt.
 [23]
 \c@pagesLTS.arabic.1.local.count=\count330
@@ -1550,10 +1619,10 @@ Package rerunfilecheck Info: File `Projet_MATH60603.out' has not changed.
 (rerunfilecheck)             Checksum: F29736EA4A9C14494412D0D206110D47;5525.
  ) 
 Here is how much of TeX's memory you used:
- 25091 strings out of 481446
- 453174 string characters out of 5919210
- 776064 words of memory out of 5000000
- 41268 multiletter control sequences out of 15000+600000
+ 25089 strings out of 481446
+ 453152 string characters out of 5919210
+ 776084 words of memory out of 5000000
+ 41266 multiletter control sequences out of 15000+600000
  576457 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,13n,96p,1451b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1568,7 +1637,7 @@ onts/type1/public/lm/lmri10.pfb><c:/Users/aoutd/AppData/Roaming/TinyTeX/texmf-d
 ist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/aoutd/AppData/Roaming/TinyTeX/te
 xmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/aoutd/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Projet_MATH60603.pdf (24 pages, 453576 bytes).
+Output written on Projet_MATH60603.pdf (24 pages, 453662 bytes).
 PDF statistics:
  330 PDF objects out of 1000 (max. 8388607)
  265 compressed objects within 3 object streams
