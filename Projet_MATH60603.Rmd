@@ -32,7 +32,9 @@ baggin + svm  + regression linéaire
 
 équilibrer VS non équilibré (3 méthode)
 
+https://www.slideshare.net/yogesh_khandelwal/churn-modelling
 
+https://www.erpublication.org/published_paper/IJETR032129.pdf
 
 ######
 
@@ -49,44 +51,48 @@ Une fois le modèle choisi, la deuxième section du rapport présentera les rés
 ... ... ... ... ... 
 
 
-
-
-
-
-
-# Méthode : présentation du design de l’étude et des différents scénarios utilisés. Présentation de la méthode d’analyse en général.
-
-## Exploration des données
-
-### Présentation des varaibles
-### Traitement et nettoyage préparatoire des données  
-
-
-
-
-
-
-
-
-
-
-###################################
-
-
 # Exploration des données
 
-```{r}
+Cette section présentera d'abord les variables du jeu de donnée. La répartition des observations dans chacune des variables est rapidement survolé. Cette section explique aussi les différents traitements, réencodage et validation exécuté sur les variables et les observations avant de débuter l'analyse des différents modèeles de simulations.  
+
+## Présentation du jeu de donnée
+
+Ci-dessous est présenté l'ensemble des variables. L'ensemble des données est donc constitué de 20 variables énuméré ci-dessous. Le jeu de donnée est donc initialement constitué de 4 variables de type chaîne de caractères ("State","International.plan","Voice.mail.plan" et "Churn"). La variable Area.code est catégorielle, tandis que tous les autres varibales sont continuent.   
+
+- State :                     États américaine de l'observation, valeur de type "character"
+- Account.length :            Valeur entière depuis combien de temps le compte existe-t-il
+- Area.code :                 Indicatif régionale (415,408 ou 510)
+- International.plan :        Adhésion au plan international (Yes ou No)
+- Voice.mail.plan :           Adhésion au plan de messagerie (Yes ou No)
+- Number.vmail.messages :     Nombre de message vocal
+- Total.day.minutes :         Nombre de minute utilisé durant le jour
+- Total.day.calls :           Nombre d'appel exécuté durant le jour
+- Total.day.charge :          Coût total pour l'utilisation de jour
+- Total.eve.minutes :         Nombre de minute utilisé durant le soir
+- Total.eve.calls :           Nombre d'appel exécuté durant le soir 
+- Total.eve.charge :          Coût total pour l'utilisation de soir
+- Total.night.minutes :       Nombre de minute utilisé durant la nuit 
+- Total.night.calls :         Nombre d'appel exécuté durant la nuit
+- Total.night.charge :        Coût total pour l'utilisation la nuit
+- Total.intl.minutes :        Nombre de minute utilisé à l'international
+- Total.intl.calls :          Nombre d'appel exécuté à l'international
+- Total.intl.charge :         Coût total pour l'utilisation à l'international
+- Customer.service.calls :    Nombre d'appel exécuté pour le service au client
+- Churn :                     Est-ce que le client à quitté (True, False)
+
+
+```{r, include=FALSE}
 # Importation des données
 
 train0=read.csv("data/churn-bigml-80.csv")
 nb_ligne_train = nrow(train0)
 test0=read.csv("data/churn-bigml-20.csv")
-mydata = rbind(train0,test0)
+mydata0 = rbind(train0,test0)
 id.train=c(1:nrow(train0))
-id.test=c((nrow(train0)+1):(nrow(mydata)))
+id.test=c((nrow(train0)+1):(nrow(mydata0)))
 
 
-
+mydata = mydata0
 train= mydata[id.train,]
 test = mydata[id.test,]
 attributes(test)$row.names = attributes(test0)$row.names
@@ -96,29 +102,22 @@ all.equal(train,train0)
 all.equal(test,test0)
 ```
 
-
 ```{r}
 summary(train)
 ```
-## Réencodage des variables "State", "International.plan" et "Voice.mail.plan" en facteur. La variable d'intérêt est réencodée en variable logique, à savoir que les valeurs "vrai" sont codées "1" et les valeurs "faux" sont codées en 0
-```{r}
-#transformation des variables "character" en "facteur"
 
-mydata$State=as.factor(mydata$State)
-mydata$International.plan=as.factor(mydata$International.plan)
-mydata$Voice.mail.plan=as.factor(mydata$Voice.mail.plan)
+## Présentation des observations
 
-#transformation variable d'intérêt en variable logique
-mydata$Churn=as.logical(mydata$Churn)
+Ci-dessous les graphiques présente la répartition des valeurs pour chacune des variables du jeu de donnée. Les 5 premiers graphique présentes la fréquence en % des observations pour les variabes de type chaîne de caractères et catégorielle. Tandis que les variables de type continue  sont présenté sous forme d'histogramme.    
 
+À partir des graphiques ci-dessous quelques interprétations intéressantes peuvent être faites : 
 
-train= mydata[id.train,]
-test = mydata[id.test,]
-attributes(test)$row.names = attributes(test0)$row.names
-```
-## Étude descriptive des données
+- Le nombre d'obsertion fait sont similaire d'un États èa l'autre
+- Le jeu de données est principalement composé d'observation sur des personnes n'ayant pas adhéré à un plan international et ni à un plan de messagerie vocal.
+- La grande majorité des observation n'ont pas quitté leurs compagnie de télécomunication et la majorité des observations habitent le secteur 415. 
+- À partir des graphiques d'histogrammes, toutes les variables de type continue suivent une courbe normale à l'exeption des variables Customer.service.calls et total.intl,calls  
 
-```{r}
+```{r, include=FALSE}
 # fonction 
 analyse_table = function (nom,variable,nb_donne)
 {
@@ -132,55 +131,79 @@ analyse_table = function (nom,variable,nb_donne)
   return(table_temporaire)
 }
 
-analyse_table('State',train$State,nrow(train))
-analyse_table('International.plan',train$International.plan,nrow(train))
-analyse_table('Voice.mail.plan',train$Voice.mail.plan,nrow(train))
-analyse_table('Churn',train$Churn,nrow(train))
-analyse_table('Area.code',train$Area.code,nrow(train))
+Proportion_States = analyse_table('State',train$State,nrow(train))
+Proportion_International.plan = analyse_table('International.plan',train$International.plan,nrow(train))
+Proportion_Voice.mail.plan = analyse_table('Voice.mail.plan',train$Voice.mail.plan,nrow(train))
+Proportion_Churn = analyse_table('Churn',train$Churn,nrow(train))
+Proportion_Area.code = analyse_table('Area.code',train$Area.code,nrow(train))
+
 ```
 
+```{r , echo = FALSE}
 
-```{r}
+# Présentation des histogrammes et proportions
 
 par(mfrow=c(2,4))
+plot(Proportion_States$State,Proportion_States$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion States", type = "h")
+plot(Proportion_International.plan$International.plan,Proportion_International.plan$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion International plan", type = "h")
+plot(Proportion_Voice.mail.plan$Voice.mail.plan,Proportion_Voice.mail.plan$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Voice.mail")
+plot(Proportion_Churn$Churn,Proportion_Churn$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Churn")
+plot(Proportion_Area.code$Area.code,Proportion_Area.code$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Area code")
+
 for (i in 1:length(colnames(train)))
 {
   if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
   {
     hist(train[,i], main = (colnames(train)[i] ),xlab = element_blank(),col = i+1)
     Axis(side=1, labels=FALSE)
-    #plot(train[,i], main = (colnames(train)[i] ))
   }
 }
 ```
 
+## Réencodage ou traitment préparatoire des données
 
-REMARQUE : Si on conserve les varialbes Customer.service.calls et total.intl,calls en variables numériques, il faudra surement prendre le log de ces variables car elles sont asymetriques à droite.!!
+Tel que présenté dans le jeu de donnée et pour la suite des simulations plusiuers valeurs ont été d'abord réencodé: 
 
-## Analyse descriptive des données 
+- La variable "State" a été convertie en une variable Facteur
+- Les variables "International.plan" ,  "Voice.mail.plan" et "Churn" en variable logique. 
+- Le dataset d'entraînement ne contient aucune valeur manquante.
+- Le log normale des variables a été calculé sur les variables Customer.service.calls et total.intl,calls, car leurs courbent d'histogramme étaient décentré vers la gauche. 
 
-```{r}
-summary(train)
+```{r, include=FALSE}
+#transformation des variables "character" en "facteur"
+
+mydata$State=as.factor(mydata$State)
+
+### ÈA corriger --> mettre ici en valuer logique !!!!!!!!!!!!!!!!!!!!!!!!!!
+mydata$International.plan=as.factor(mydata$International.plan)
+mydata$Voice.mail.plan=as.factor(mydata$Voice.mail.plan)
+
+#transformation variable d'intérêt en variable logique
+mydata$Churn=as.logical(mydata$Churn)
+
+# MAJ fait sur les deux data set
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
 ```
 
-Le dataset d'entraînement ne contient aucune valeur manquante. il y a 15 variables continues, 3 variables catégorielles, et une variables binaires. (a faire avec cours chapitre 9 .... is na .... )
+### Présentation de la corrélation entre les variables
 
-```{r}
-round(mean(train$Churn),digits=2)
-```
-Le pourcentage de clients ayant quittés la compagnie est de 15%.\
+Le graphique ci-dessous présente la corrélation entre les variables. Les varaibles du dataset sont faiblement corrélées à l'exception des variables indiquant le nombre de muinutes consommés et les frais chargés associés, comme les varaibles : "Total.night charge" et "Total.night.minutes". Comme ces variables ont une corrélation parfaites, nous décidons de supprimer du dataset les variables "charge". Ce qui revient à supprimer 4 variables du dataset.
 
 ```{r,include=FALSE}
 library("plotly")
 library("corrplot")
 ```
 
-```{r}
+```{r , echo = FALSE}
 corrplot(cor(train[,c(2,3,6:19)]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
 ```
-Les varaibles du dataset sont faiblement corrélées à l'exception des variables indiquant le nombre de muinutes consommés et les frais chargés associés, comme les varaibles : "Total.night charge" et "Total.night.minutes". Comme ces variables ont une corrélation parfaites, nous décidons de supprimer du dataset les variables "charge". Ce qui revient à supprimer 4 variables du dataset.
 
-```{r}
+
+```{r, include=FALSE}
+
+# Suppression des variables Total.x.charge
 mydata = subset(mydata, select = -c(Total.day.charge,Total.night.charge,Total.eve.charge,Total.intl.charge) )
 
 train= mydata[id.train,]
@@ -188,19 +211,30 @@ test = mydata[id.test,]
 attributes(test)$row.names = attributes(test0)$row.names
 
 corrplot(cor(train[,c(2,3,6:(length(names(mydata))-1))]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
-
 ```
 
 
-```{r}
+```{r, include=FALSE}
+
+###### À retirer #############################################################################
+
 library(ggplot2)
 ggplot(train, aes(x = Churn, fill=Customer.service.calls)) +
   geom_bar( ) +
   xlab("client ayant quitté") + ylab("Customer.service.calls") +
   ggtitle("Total de client ayant quitté")
+
+#############################################################################
+
 ```
 
-```{r, message=FALSE}
+### Présentation du taux de Churn selon l'État 
+
+Ci-desosus un map est présenté avec sn taux de perte de client. On constate que les états du Texas et New Jersey sont les états ayant perdus le plus de clientèle, avec un pourcentage de perte supérieur à 25%.
+
+```{r, message=FALSE , include=FALSE}
+# Présentation de la map USA VS CHURN
+
 library(dplyr)
 library(usmap)
 us.map=train
@@ -211,8 +245,7 @@ state.churn=us.map %>%
   group_by(state) %>%
   summarise(pct_perte.client = mean(Churn)*100)
 ```
-
-```{r}
+```{r , echo = FALSE}
 us.map = data.frame(us.map)
 
 plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="black")+
@@ -221,9 +254,9 @@ plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color
   theme(legend.position = "right")
 
 ```
-On constate que les états du Texas et New Jersey sont les états ayant perdus le plus de clientèle, avec un pourcentage de perte supérieur à 25%.\
 
 
+# Modèele de simulation 
 
 ## Régression logistique (validation croisé) --- a corriger la courbe roc ........
 
@@ -489,7 +522,7 @@ test$Churn=as.factor(test$Churn)
 set.seed(1234)
 
 # boosting with trees of depth 10
-myboost=boosting(Churn~., data=train, mfinal = 100, coeflearn = 'Freund', control=rpart.control(maxdepth=10))
+myboost=boosting(Churn~., data=train, mfinal = 10, coeflearn = 'Freund', control=rpart.control(maxdepth=10))
 myboost$importance
 
 pred=predict(myboost, newdata=test)
