@@ -1,29 +1,577 @@
 ---
-title: 'Projet '
-author: "Jean Guirguis (11290393) et David Gascon (xxxxxxx)"
-date: "xx/12/2020"
-output:
-  html_document: default
-  word_document: default
-  pdf_document: default
+output :
+  bookdown::pdf_document2:
+    fig_caption: yes
+    highlight: tango
+    includes:
+      before_body: before_body.tex
+      in_header: header.tex
+    keep_tex: no
+    number_sections: yes
+    toc: yes
+geometry: top=2.4cm, bottom=2.1cm, outer=2cm, inner=4cm, headheight=40pt
+lang: FR
+documentclass: article
+classoption: letter
 ---
-
+\pagebreak
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# Librairies
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
 ```
+
+######
+Note : 
+
+baggin + svm  + regression linéaire
+
+équilibrer VS non équilibré (3 méthode)
+
+https://www.slideshare.net/yogesh_khandelwal/churn-modelling
+
+https://www.erpublication.org/published_paper/IJETR032129.pdf
+
+######
+
+# Introduction : présentation des objectifs de l’étude
+
+L'objectif de cette étude est de faire une prédiction sur le désbonnement d'un client pour un service de télécommunication. Cette simulation a été fait à partir d'une base de données présent sur kaggle à l'adresse suivante :
+<br>
+https://www.kaggle.com/mnassrib/telecom-churn-datasets?select=churn-bigml-80.csv. 
+<br>
+L'analyse a été effectué sur les client d'Orange Telecom aux États-Unis et plusieurs variables on été analysés tels que lieu géographique, le type de plan que le client possède, le nombre de minutes utilisé pour des appels durant le jour et le soir, etc. 
+<br>
+<br>
+Ce rapport contient en premier lieu, une présentation détaillé de notre jeu de donnée : présentation des variables et des observations, quelques analyses de corrélations entre les variables et de traintement et réencodage préalable du jeu de donnée. 
+<br>
+Ensuite, plusieurs méthode et stratégie de prédiction seront testés afin de déterminer le modèle le mieux adapté à notre échantillion d'utilisateurs. Tels que la régressions, les abres et forêt élague, etc. 
+<br>
+Finalement, les caractéristiques de chacun des modèeles seront comparés afin de déterminer le meilleur modèele de prédiction pour notre jeu de donnée.  
 
 # Exploration des données
 
-```{r}
+Cette section présentera d'abord les variables du jeu de donnée. La répartition des observations dans chacune des variables est rapidement survolé. Cette section explique aussi les différents traitements, réencodage et validation exécuté sur les variables et les observations avant de débuter l'analyse des différents modèeles de simulations.  
+
+## Présentation du jeu de donnée
+
+Ci-dessous est présenté l'ensemble des variables. L'ensemble des données est donc constitué de 20 variables énuméré ci-dessous. Le jeu de donnée est donc initialement constitué de 4 variables de type chaîne de caractères ("State","International.plan","Voice.mail.plan" et "Churn"). La variable Area.code est catégorielle, tandis que tous les autres varibales sont continuent.   
+
+- State :                     États américaine de l'observation, valeur de type "character"
+- Account.length :            Valeur entière depuis combien de temps le compte existe-t-il
+- Area.code :                 Indicatif régionale (415,408 ou 510)
+- International.plan :        Adhésion au plan international (Yes ou No)
+- Voice.mail.plan :           Adhésion au plan de messagerie (Yes ou No)
+- Number.vmail.messages :     Nombre de message vocal
+- Total.day.minutes :         Nombre de minute utilisé durant le jour
+- Total.day.calls :           Nombre d'appel exécuté durant le jour
+- Total.day.charge :          Coût total pour l'utilisation de jour
+- Total.eve.minutes :         Nombre de minute utilisé durant le soir
+- Total.eve.calls :           Nombre d'appel exécuté durant le soir 
+- Total.eve.charge :          Coût total pour l'utilisation de soir
+- Total.night.minutes :       Nombre de minute utilisé durant la nuit 
+- Total.night.calls :         Nombre d'appel exécuté durant la nuit
+- Total.night.charge :        Coût total pour l'utilisation la nuit
+- Total.intl.minutes :        Nombre de minute utilisé à l'international
+- Total.intl.calls :          Nombre d'appel exécuté à l'international
+- Total.intl.charge :         Coût total pour l'utilisation à l'international
+- Customer.service.calls :    Nombre d'appel exécuté pour le service au client
+- Churn :                     Est-ce que le client à quitté (True, False)
+
+
+```{r, include=FALSE}
 # Importation des données
 
-train=read.csv("data/churn-bigml-80.csv")
-test=read.csv("data/churn-bigml-20.csv")
-zxzx
+train0=read.csv("data/churn-bigml-80.csv")
+nb_ligne_train = nrow(train0)
+test0=read.csv("data/churn-bigml-20.csv")
+mydata0 = rbind(train0,test0)
+id.train=c(1:nrow(train0))
+id.test=c((nrow(train0)+1):(nrow(mydata0)))
 
 
+mydata = mydata0
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
+identical(train,train0)
+identical(test,test0)
+all.equal(train,train0)
+all.equal(test,test0)
+```
 
-
+```{r}
 summary(train)
 ```
+
+## Présentation des observations
+
+Ci-dessous les graphiques présente la répartition des valeurs pour chacune des variables du jeu de donnée. Les 5 premiers graphique présentes la fréquence en % des observations pour les variabes de type chaîne de caractères et catégorielle. Tandis que les variables de type continue  sont présenté sous forme d'histogramme.    
+
+À partir des graphiques ci-dessous quelques interprétations intéressantes peuvent être faites : 
+
+- Le nombre d'obsertion fait sont similaire d'un États èa l'autre
+- Le jeu de données est principalement composé d'observation sur des personnes n'ayant pas adhéré à un plan international et ni à un plan de messagerie vocal.
+- La grande majorité des observation n'ont pas quitté leurs compagnie de télécomunication et la majorité des observations habitent le secteur 415. 
+- À partir des graphiques d'histogrammes, toutes les variables de type continue suivent une courbe normale à l'exeption des variables Customer.service.calls et total.intl,calls  
+
+```{r, include=FALSE}
+# fonction 
+analyse_table = function (nom,variable,nb_donne)
+{
+  table_temporaire= table(variable)
+  table_temporaire = as.data.frame(table_temporaire)
+  table_temporaire = data.frame(table_temporaire,pourcentage=round(table_temporaire[2]/nb_donne*100, digit =2))
+  names(table_temporaire)[3] = "% Freq"
+  names(table_temporaire)[1] = nom
+  #table_temporaire = head(table_temporaire[order(-table_temporaire[3]),],3)
+  table_temporaire = table_temporaire[order(-table_temporaire[3]),]
+  return(table_temporaire)
+}
+
+Proportion_States = analyse_table('State',train$State,nrow(train))
+Proportion_International.plan = analyse_table('International.plan',train$International.plan,nrow(train))
+Proportion_Voice.mail.plan = analyse_table('Voice.mail.plan',train$Voice.mail.plan,nrow(train))
+Proportion_Churn = analyse_table('Churn',train$Churn,nrow(train))
+Proportion_Area.code = analyse_table('Area.code',train$Area.code,nrow(train))
+
+```
+
+```{r , echo = FALSE}
+
+# Présentation des histogrammes et proportions
+
+par(mfrow=c(2,4))
+plot(Proportion_States$State,Proportion_States$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion States", type = "h")
+plot(Proportion_International.plan$International.plan,Proportion_International.plan$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion International plan", type = "h")
+plot(Proportion_Voice.mail.plan$Voice.mail.plan,Proportion_Voice.mail.plan$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Voice.mail")
+plot(Proportion_Churn$Churn,Proportion_Churn$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Churn")
+plot(Proportion_Area.code$Area.code,Proportion_Area.code$`% Freq`,ylab = "%",xlab = element_blank(), col = 1, main= "Proportion Area code")
+
+for (i in 1:length(colnames(train)))
+{
+  if (i != 1 & i !=3  & i != 4 & i != 5 & i !=length(colnames(train)))
+  {
+    hist(train[,i], main = (colnames(train)[i] ),xlab = element_blank(),col = i+1)
+    Axis(side=1, labels=FALSE)
+  }
+}
+```
+
+## Réencodage ou traitment préparatoire des données
+
+Tel que présenté dans le jeu de donnée et pour la suite des simulations plusiuers valeurs ont été d'abord réencodé: 
+
+- La variable "State" a été convertie en une variable Facteur
+- Les variables "International.plan" ,  "Voice.mail.plan" et "Churn" en variable logique. 
+- Le dataset d'entraînement ne contient aucune valeur manquante.
+- Le log normale des variables a été calculé sur les variables Customer.service.calls et total.intl,calls, car leurs courbent d'histogramme étaient décentré vers la gauche. 
+
+```{r, include=FALSE}
+#transformation des variables "character" en "facteur"
+
+mydata$State=as.factor(mydata$State)
+# 
+# ### ÈA corriger --> mettre ici en valuer logique !!!!!!!!!!!!!!!!!!!!!!!!!!
+# mydata$International.plan=as.factor(mydata$International.plan)
+# mydata$Voice.mail.plan=as.factor(mydata$Voice.mail.plan)
+
+#transformation variable d'intérêt en variable logique
+
+mydata$Churn[mydata$Churn == "False"] = 0
+mydata$Churn[mydata$Churn == "True"] = 1
+mydata$Churn = as.numeric(mydata$Churn)
+mydata$Churn=as.logical(mydata$Churn)
+
+
+mydata$International.plan[mydata$International.plan == "No"] = 0
+mydata$International.plan[mydata$International.plan == "Yes"] = 1
+mydata$International.plan = as.numeric(mydata$International.plan)
+mydata$International.plan=as.logical(mydata$International.plan)
+
+mydata$Voice.mail.plan[mydata$Voice.mail.plan == "No"] = 0
+mydata$Voice.mail.plan[mydata$Voice.mail.plan == "Yes"] = 1
+mydata$Voice.mail.plan = as.numeric(mydata$Voice.mail.plan)
+mydata$Voice.mail.plan=as.logical(mydata$Voice.mail.plan)
+
+
+# MAJ fait sur les deux data set
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
+```
+
+### Présentation de la corrélation entre les variables
+
+Le graphique ci-dessous présente la corrélation entre les variables. Les varaibles du dataset sont faiblement corrélées à l'exception des variables indiquant le nombre de muinutes consommés et les frais chargés associés, comme les varaibles : "Total.night charge" et "Total.night.minutes". Comme ces variables ont une corrélation parfaites, nous décidons de supprimer du dataset les variables "charge". Ce qui revient à supprimer 4 variables du dataset.
+
+```{r,include=FALSE}
+library("plotly")
+library("corrplot")
+```
+
+```{r , echo = FALSE}
+corrplot(cor(train[,c(2,3,6:19)]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
+```
+
+
+```{r, include=FALSE}
+
+# Suppression des variables Total.x.charge
+mydata = subset(mydata, select = -c(Total.day.charge,Total.night.charge,Total.eve.charge,Total.intl.charge) )
+
+train= mydata[id.train,]
+test = mydata[id.test,]
+attributes(test)$row.names = attributes(test0)$row.names
+
+corrplot(cor(train[,c(2,3,6:(length(names(mydata))-1))]), method = "color", addCoef.col="grey", order = "AOE",tl.cex=0.75,tl.col="black",number.cex = 0.5)
+```
+
+
+```{r, include=FALSE}
+
+###### À retirer #############################################################################
+
+library(ggplot2)
+ggplot(train, aes(x = Churn, fill=Customer.service.calls)) +
+  geom_bar( ) +
+  xlab("client ayant quitté") + ylab("Customer.service.calls") +
+  ggtitle("Total de client ayant quitté")
+
+#############################################################################
+
+```
+
+### Présentation du taux de Churn selon l'État 
+
+Ci-desosus un map est présenté avec sn taux de perte de client. On constate que les états du Texas et New Jersey sont les états ayant perdus le plus de clientèle, avec un pourcentage de perte supérieur à 25%.
+
+```{r, message=FALSE , include=FALSE}
+# Présentation de la map USA VS CHURN
+
+library(dplyr)
+library(usmap)
+us.map=train
+names(us.map)[names(us.map)=="State"]="state"
+us.map = data.frame(us.map)
+
+state.churn=us.map %>%
+  group_by(state) %>%
+  summarise(pct_perte.client = mean(Churn)*100)
+```
+```{r , echo = FALSE}
+us.map = data.frame(us.map)
+
+plot_usmap(regions="state", data=state.churn, values = "pct_perte.client", color="black")+
+  scale_fill_continuous(low = "green", high = "red", name = "pct_perte.client (%)")+ 
+  labs(title = "Perte clientèle États-Unis", subtitle = "Opérateur Orange télécom")+
+  theme(legend.position = "right")
+
+```
+
+
+# Modèle de simulation 
+
+Cette section présentera plusieurs simulations pour porédire la valeur du churn selon les variables de notre jeu de donnée. Les simulations qui serons testés sont les suivantes : 
+
+- Régression logistiqu
+- Arbre de classification élagé
+- forêt aléatoire approche bagging et boosting
+- La méthode SVM 
+
+## Régression logistique (validation croisé) 
+
+```{r , echo = FALSE}
+
+trainRL = train
+testRL = test
+
+set.seed(1234)
+
+model1=glm(Churn~ ., family="binomial",data=trainRL)
+
+#BIC  
+BIC = round(BIC(model1), digit = 2)
+
+#AIC
+AIC = round(model1$aic, digit = 2)
+
+library(ROCR)
+prob.predict=predict.glm(model1,testRL,type="response")
+cutoff=0.5
+test.pred = rep(0, nrow(testRL))
+test.pred[prob.predict > cutoff] = 1
+M=table(test.pred, testRL$Churn,dnn=c("Prediction","Observation"))
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+# Sensibilité
+Sensibilité = d/(b+d)
+
+# Specificité
+Specificité = a/(a+c)
+
+# Taux d'erreures de classification (%)
+((b+c)/(a+b+c+d))*100
+
+
+pred=prediction(prob.predict,testRL$Churn)
+perf=performance(pred,measure="tpr",x.measure="fpr")
+auc.perf = performance(pred, measure = "auc")
+
+plot(perf, main = "Courbe ROC")
+abline(a=0,b=1)
+
+```
+
+## Arbre de classification élagé
+
+
+```{r}
+
+train = train0
+test = train0
+
+train$Churn[train$Churn == "False"] = 0
+train$Churn[train$Churn == "True"] = 1
+train$Churn = as.numeric(train$Churn)
+
+test$Churn[test$Churn == "False"] = 0
+test$Churn[test$Churn == "True"] = 1
+test$Churn = as.numeric(test$Churn)
+
+set.seed(400)
+
+# Création de l'arbre : 
+library(rpart.plot)
+
+mytree = rpart(Churn~., data=train , method = "class")
+cp_optimal=mytree$cptable[which.min(mytree$cptable[,4]),1]
+mytree_optimal = prune(mytree,cp=cp_optimal)
+prp(mytree_optimal,extra=1,roundint=FALSE, main = "Arbre avec élagage")
+
+
+mytable=table(test$Churn, predict(mytree_optimal,test, type="class"))
+names(dimnames(mytable))= c("Observed", "Predicted")
+M = mytable
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+
+# Taux de mauvaises classifications
+((b+c)/(a+b+c+d))*100
+
+
+# Taux de faux positifs
+round(((b+c)/(a+b+c+d))*100, digit = 2)
+
+# Taux faux négatif 
+round((1-(d/(b+d)))*100, digit = 2)
+
+# Paramètre de complexité maximale
+cp_optimal
+
+
+# Boucle for
+
+nb_boucle = 20
+
+Taux_mauvaise_classificaiton=matrix(0,nb_boucle,1)
+Taux_faux_positifs=matrix(0,nb_boucle,1)
+Taux_faux_negatif=matrix(0,nb_boucle,1)
+valeur_seed = matrix(0,nb_boucle,1)
+
+par(mfrow=c(4,3))
+
+for (i in 1:nb_boucle)
+{
+n=nrow(mydata)
+set.seed(i*15231)
+id.train=sample(1:n,size=nrow(train))
+id.test=setdiff(1:n,id.train)
+
+mydata.train= mydata[id.train,]
+mydata.test = mydata[id.test,]
+
+library(rpart.plot)
+set.seed(i*15231)
+valeur_seed[i]=i*15231
+
+mytree = rpart(Churn~., data=mydata.train, method = "class")
+
+cp_optimal=mytree$cptable[which.min(mytree$cptable[,4]),1]
+mytree_optimal = prune(mytree,cp=cp_optimal)
+
+#prp(mytree_optimal,extra=1,roundint=FALSE)
+
+mytable=table(mydata.test$Churn, predict(mytree_optimal,mydata.test, type="class"))
+names(dimnames(mytable))= c("Observed", "Predicted")
+M = mytable
+
+a=M[1,1]
+b=M[1,2]
+c=M[2,1]
+d=M[2,2]
+
+# Taux de mauvaises classifications
+Taux_mauvaise_classificaiton[i]= ((b+c)/(a+b+c+d))
+# Taux faux positifs
+Taux_faux_positifs[i]= round((1-(a/(a+c))), digit = 2 ) 
+# Taux faux négatif
+Taux_faux_negatif[i] = round((1-(d/(b+d))), digit = 2)
+
+
+}
+
+par(mfrow=c(1,1))
+
+plot(valeur_seed,Taux_mauvaise_classificaiton, type = "l", ylim= c(0,0.6), col = 3, ylab = "Taux", xlab = "Valeur de seed différent", main = "Variation du taux de mauvaises clasification,\n de faux positif et de faux négatif")
+lines(valeur_seed,Taux_faux_positifs,col=1)
+lines(valeur_seed,Taux_faux_negatif,col=2)
+legend(90000, 0.6, legend=c("Faux positifs","Faux négatif","Mauvaises classifications"), col=1:3,lty=rep(1,3),title="Taux")
+
+# Taux de faux positif 
+## Maximum
+round(max(Taux_faux_positifs), digit =2)
+
+## Minimum
+round(min(Taux_faux_positifs), digit =2)
+
+# Taux de mauvaises classifications 
+## Maximum
+round(max(Taux_mauvaise_classificaiton), digit =2 )
+
+## Minimum
+round(min(Taux_mauvaise_classificaiton) , digit = 2)
+
+# Taux faux négatif
+## Maximum
+round(max(Taux_faux_negatif), digit = 2)
+
+## Minimum
+round(min(Taux_faux_negatif), digit = 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+## forêt aléatoire approche bagging
+
+
+```{r}
+
+train = train0
+test = train0
+
+train$Churn[train$Churn == "False"] = 0
+train$Churn[train$Churn == "True"] = 1
+train$Churn = as.numeric(train$Churn)
+
+test$Churn[test$Churn == "False"] = 0
+test$Churn[test$Churn == "True"] = 1
+test$Churn = as.numeric(test$Churn)
+
+
+library(randomForest)
+
+mydata$Churn <- as.factor(mydata$Churn)
+
+set.seed(1234)
+n.arbre=seq(1,800,by=50)
+erreur=NULL
+for (i in n.arbre)
+{
+  rf=randomForest(Churn~.,data=mydata,ntree=i,mtry=length(colnames(mydata))-1)
+  erreur=c(erreur,sum(rf$err.rate[,1])/rf$ntree)
+}
+plot(n.arbre, erreur,type="l")
+
+rf=randomForest(Churn~.,data=mydata,ntree=600,mtry=length(colnames(mydata))-1)   
+rf
+
+importance(rf,type=1)
+
+```
+
+## Boosting
+
+```{r}
+library(randomForest)
+library(adabag)
+
+train = train0
+test = train0
+
+train$Churn[train$Churn == "False"] = 0
+train$Churn[train$Churn == "True"] = 1
+train$Churn = as.numeric(train$Churn)
+
+test$Churn[test$Churn == "False"] = 0
+test$Churn[test$Churn == "True"] = 1
+test$Churn = as.numeric(test$Churn)
+
+train$Churn=as.factor(train$Churn)
+test$Churn=as.factor(test$Churn)
+
+set.seed(1234)
+
+# boosting with trees of depth 10
+myboost=boosting(Churn~., data=train, mfinal = 10, coeflearn = 'Freund', control=rpart.control(maxdepth=10))
+myboost$importance
+
+pred=predict(myboost, newdata=test)
+
+pred$error
+
+M=pred$confusion
+
+
+#mytable=table(myboost$class,mydata$Churn)   
+# names(dimnames(mytable))= c("Predicted", "Observed")                       
+# M = mytable
+# M
+# a=M[1,1]
+# b=M[1,2]
+# c=M[2,1]
+# d=M[2,2]
+
+# Taux de faux positifs
+M[2,1]/(M[2,1]+M[1,1])
+
+# Taux de faux négatifs
+M[1,2]/(M[2,2]+M[1,2])
+
+
+```
+
+
+## SVM
+
+
+
+# Résultats : présentation des résultats sous forme de tableaux et figures (ne mettez pas de sortie R)
+
+# Conclusion/discussion : conclusion générale, limites de votre étude, qu’avez vous appris ?
+
 
